@@ -1,6 +1,7 @@
 package Main;
 
 import EstructurasDatos.Listas.Lista;
+import EstructurasDatos.Listas.NodoProducto;
 import RepoImpl.Productos;
 
 import javax.swing.*;
@@ -29,7 +30,7 @@ public class Principal {
 
                 case 1:
                     listaProductos.insertaProducto(
-                            new Productos(Integer.parseInt(JOptionPane.showInputDialog("Ingese el ID(numeros) del Producto")),
+                            new Productos( generaConsecutivo(listaProductos),
                                     JOptionPane.showInputDialog("Ingese el nonbre del producto"),
                                     Double.parseDouble(JOptionPane.showInputDialog("Ingese el precio del Producto")),
                                     Double.parseDouble(JOptionPane.showInputDialog("Ingese la cantidad (kg/unidades) del Producto")),
@@ -37,7 +38,9 @@ public class Principal {
                     opcionMenu = 0;
                     break;
                 case 2:
-                    Productos producto = listaProductos.buscar(Integer.parseInt(JOptionPane.showInputDialog("Ingese el ID(numeros) del Producto")));
+                    Productos p = null;
+                    NodoProducto aux = listaProductos.getCabeza();
+                    Productos producto = listaProductos.buscarR(Integer.parseInt(JOptionPane.showInputDialog("Ingese el ID(numeros) del Producto")),p,aux);
                     if (producto != null){
                         JOptionPane.showConfirmDialog(null,producto);
                     }
@@ -69,5 +72,18 @@ public class Principal {
 
         }
         while(opcionMenu != 6);
+    }
+    private static int generaConsecutivo(Lista lista){
+        int consecutivo = 1;
+        NodoProducto aux = lista.getCabeza();
+        while (aux != null){
+            while (aux.getNext() != null){
+                aux = aux.getNext();
+            }
+            consecutivo = aux.getProductos().getId() + 1;
+            return consecutivo;
+        }
+
+        return consecutivo;
     }
 }

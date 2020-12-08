@@ -62,6 +62,21 @@ public class Lista {
 
     }
 
+    public Productos buscarR(int id, Productos p, NodoProducto aux){
+
+        if (aux == null){
+            return null;
+        }
+        else if(id == aux.getProductos().getId()){
+            p = aux.getProductos();
+            return p;
+        }
+        else{
+            return buscarR(id,p,aux.getNext());
+        }
+
+    }
+
     public void modifica(int id,Productos productos){
         NodoProducto aux = cabeza;
         if(buscar(id) != null) {
@@ -103,6 +118,10 @@ public class Lista {
     }
 
 
+    public NodoProducto getCabeza() {
+        return cabeza;
+    }
+
     public int cantidadElementos(){
         int cantidad = 0;
         NodoProducto aux = cabeza;
@@ -117,8 +136,7 @@ public class Lista {
 
     @Override
     public String toString() {
-        return "Lista{" +
-                "cabeza=" + cabeza +
+        return "Lista{" + cabeza +
                 '}';
     }
 }

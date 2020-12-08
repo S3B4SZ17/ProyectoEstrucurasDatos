@@ -15,4 +15,11 @@ public class NodoProducto {
     public NodoProducto(Productos productos) {
         this.productos = productos;
     }
+
+    @Override
+    public String toString() {
+        return "{" + productos +
+                ", next = " + next +
+                '}';
+    }
 }

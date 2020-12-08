@@ -1,5 +1,7 @@
 package RepoImpl;
 
+import EstructurasDatos.Listas.Lista;
+import EstructurasDatos.Listas.NodoProducto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,9 +22,10 @@ public class Productos{
         this.cantidad = cantidad;
     }
 
+
     @Override
     public String toString() {
-        return "Productos{" +
+        return "{" +
                 " Id = " + Id +
                 ", nombre = '" + nombre + '\'' +
                 ", precio = " + precio +
@@ -30,4 +33,8 @@ public class Productos{
                 ", descripcion = '" + descripcion + '\'' +
                 '}'+"\n";
     }
+
+
+
+
 }
