@@ -1,6 +1,7 @@
 package EstructurasDatos.Colas;
 
 import EstructurasDatos.Listas.Lista;
+import RepoImpl.Usuarios;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,16 +11,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class NodoCola {
     private int factura;
-    private Clientes cliente;
+    private Usuarios cliente;
     private Lista productos;
     private NodoCola nodoCola;
 
-    public NodoCola(int factura, Clientes cliente, Lista productos) {
+    public NodoCola(int factura, Usuarios cliente, Lista productos) {
         this.factura = factura;
         this.cliente = cliente;
         this.productos = productos;
     }
-
 
     public NodoCola getAtras() {
         return nodoCola;
