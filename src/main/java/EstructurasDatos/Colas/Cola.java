@@ -1,43 +1,35 @@
 package EstructurasDatos.Colas;
 
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Cola {
     private NodoCola primero;
     private NodoCola ultimo;
-    private final int size;
-    private int contador = 0;
 
 
-    public Cola(int size) {
-        this.size = size;
-    }
-    public Cola() {
-        this.size = 20;
-    }
 
     public void agregarCola(NodoCola elemento){
         if(vacia()){
             primero = elemento;
             ultimo = elemento;
-            contador++;
+
         }else{
-            if(!llena()){
-                ultimo.setAtras(elemento);
-                ultimo = elemento;
-                contador++;
-            }else{
-                System.out.println("La cola esta llena, solo se pueden agregar "+getSize()+" elementos");
-            }
-
-
+            ultimo.setAtras(elemento);
+            ultimo = elemento;
         }
     }
 
     public int atiende(){
         int aux = 0;
         if (!vacia()){
-            aux = primero.getNumero();
+            aux = primero.getFactura();
             primero = primero.getAtras();
-            contador--;
             return aux;
         }
         else{
@@ -51,7 +43,7 @@ public class Cola {
         NodoCola temp;
         temp = primero;
         while (temp != null) {
-            str += "\t" + temp.getNumero();
+            str += "\t" + temp.getFactura();
             temp = temp.getAtras();
         }
         return str;
@@ -62,28 +54,6 @@ public class Cola {
         else return false;
     }
 
-    public boolean llena(){
-        if (contador == getSize()) return true;
-        else return false;
-
-    }
-
-    public int getSize() {
-        return size;
-    }
 
 
-    public int[] recorreColaLlenaMatriz(){
-        int[] matriz = new int[getSize()];
-        NodoCola aux = primero;
-        int i = 0;
-        while (aux!=null){
-            matriz[i] = aux.getNumero();
-            aux = aux.getAtras();
-            i++;
-        }
-
-        return matriz;
-
-    }
 }

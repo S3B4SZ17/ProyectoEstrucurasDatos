@@ -1,20 +1,25 @@
 package EstructurasDatos.Colas;
 
+import EstructurasDatos.Listas.Lista;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class NodoCola {
-    private int numero;
+    private int factura;
+    private Clientes cliente;
+    private Lista productos;
     private NodoCola nodoCola;
 
-    public NodoCola(int numero) {
-        this.numero = numero;
+    public NodoCola(int factura, Clientes cliente, Lista productos) {
+        this.factura = factura;
+        this.cliente = cliente;
+        this.productos = productos;
     }
 
-    public int getNumero() {
-        return numero;
-    }
-
-    public void setNumero(int numero) {
-        this.numero = numero;
-    }
 
     public NodoCola getAtras() {
         return nodoCola;
@@ -24,8 +29,5 @@ public class NodoCola {
         this.nodoCola = cola;
     }
 
-    @Override
-    public String toString() {
-        return String.valueOf(numero);
-    }
+
 }
