@@ -1,6 +1,7 @@
 package Main;
 
 import EstructurasDatos.Colas.Cola;
+import EstructurasDatos.Colas.NodoCola;
 import EstructurasDatos.Listas.Lista;
 import EstructurasDatos.Listas.ListaUsuarios;
 import EstructurasDatos.Listas.NodoProducto;
@@ -32,7 +33,7 @@ public class metodosMenu {
 
                     case 1:
                         listaProductos.insertaProducto(
-                                new Productos(generaConsecutivo(listaProductos),
+                                new Productos(generaConsecutivoProducto(listaProductos),
                                         JOptionPane.showInputDialog("Ingese el nonbre del producto"),
                                         Double.parseDouble(JOptionPane.showInputDialog("Ingese el precio del Producto")),
                                         Double.parseDouble(JOptionPane.showInputDialog("Ingese la cantidad (kg/unidades) del Producto")),
@@ -79,7 +80,20 @@ public class metodosMenu {
         return listaProductos;
     }
 
-    private int generaConsecutivo(Lista lista){
+    private int generaConsecutivoProducto(Lista lista){
+        int consecutivo = 1;
+        NodoProducto aux = lista.getCabeza();
+        while (aux != null){
+            while (aux.getNext() != null){
+                aux = aux.getNext();
+            }
+            consecutivo = aux.getProductos().getId() + 1;
+            return consecutivo;
+        }
+
+        return consecutivo;
+    }
+    private int generaConsecutivoFactura(Lista lista){
         int consecutivo = 1;
         NodoProducto aux = lista.getCabeza();
         while (aux != null){
@@ -103,7 +117,8 @@ public class metodosMenu {
                         "************* Modulo de Ventas ***************\n" +
                                 "1. Ver Productos\n" +
                                 "2. Realizar compra\n" +
-                                "3. Volver al menu Principal\n\n" +
+                                "3. Ver ordenes de compra"+
+                                "4. Volver al menu Principal\n\n" +
                                 "Digite la opción que desea ejecutar:\n" +
                                 "***************************************\n"));
 
@@ -114,15 +129,32 @@ public class metodosMenu {
                         opcionMenu = 0;
                         break;
                     case 2:
-                        Productos p = null;
-                        NodoProducto aux = listaProductos.getCabeza();
-                        //se tiene que buscar por ID un usuario para asi poder generar la compra
-                        Productos producto = listaProductos.buscarR(Integer.parseInt(JOptionPane.showInputDialog("Ingese el ID(numeros) del Producto")), p, aux);
-                        if (producto != null) {
+                        Lista productos = new Lista();
+                        int continuar =0;
+                        do{
+                            Productos p = null;
+                            NodoProducto aux = listaProductos.getCabeza();
+                            Productos producto = listaProductos.buscarR(Integer.parseInt(JOptionPane.showInputDialog("Ingese el ID(numeros) del Producto para gregar a la orden")), p, aux);
+                            if (producto != null) {
+                                producto.setCantidad(Double.parseDouble(JOptionPane.showInputDialog("Digite la cantidad del producto")));
+                                productos.insertaProducto(producto);
+                            } else {
+                                JOptionPane.showConfirmDialog(null, "No se encontro ningun producto con ese ID");
+                            }
+                            continuar = Integer.parseInt(JOptionPane.showInputDialog("Desea agregar mas productos? "+
+                                    "1. Si\n"+
+                                    "2. No\n"));
+                        }while (continuar != 2);
 
-                        } else {
-                            JOptionPane.showConfirmDialog(null, "No se encontro ningun producto con ese ID");
-                        }
+
+                        pedidos.agregarCola(new NodoCola(Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de factura")),
+                                //listaClientes.buscarCliente(Integer.parseInt("Digite el ID del cleinte"));se tiene que buscar por ID un usuario para asi poder generar la compra
+                                ,productos));
+
+                        opcionMenu = 0;
+                        break;
+                    case 3:
+                        JOptionPane.showConfirmDialog(null, pedidos);
                         opcionMenu = 0;
                         break;
                 }
@@ -132,7 +164,7 @@ public class metodosMenu {
                 JOptionPane.showConfirmDialog(null,"Dato ingresado incorrectamente");
             }
         }
-        while(opcionMenu != 3);
+        while(opcionMenu != 4);
 
         return pedidos;
 
