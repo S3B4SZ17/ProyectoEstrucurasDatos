@@ -24,7 +24,7 @@ public class metodosMenu {
                                 "3. Eliminar Producto\n" +
                                 "4. Modificar producto\n" +
                                 "5.	Mostrar todos los productos\n" +
-                                "6.	Salir\n\n" +
+                                "6.	Volver al menu Principal\n\n" +
                                 "Digite la opción que desea ejecutar:\n" +
                                 "***************************************\n"));
 
@@ -103,7 +103,7 @@ public class metodosMenu {
                         "************* Modulo de Ventas ***************\n" +
                                 "1. Ver Productos\n" +
                                 "2. Realizar compra\n" +
-                                "3. Salir\n\n" +
+                                "3. Volver al menu Principal\n\n" +
                                 "Digite la opción que desea ejecutar:\n" +
                                 "***************************************\n"));
 
@@ -116,6 +116,7 @@ public class metodosMenu {
                     case 2:
                         Productos p = null;
                         NodoProducto aux = listaProductos.getCabeza();
+                        //se tiene que buscar por ID un usuario para asi poder generar la compra
                         Productos producto = listaProductos.buscarR(Integer.parseInt(JOptionPane.showInputDialog("Ingese el ID(numeros) del Producto")), p, aux);
                         if (producto != null) {
 
@@ -137,7 +138,7 @@ public class metodosMenu {
 
     }
 
-    public ListaUsuarios menuUsuarios(ListaUsuarios usuario){
+    public ListaUsuarios menuUsuarios(ListaUsuarios usuario,Lista listaProductos,Cola pedidos){
         int opcion =0;
         int tipoUsuario;
         int menuUsuarios;
@@ -173,68 +174,73 @@ public class metodosMenu {
                                             + "1)Agregar nuevo usuario \n"
                                             + "2)Ver usuarios registrados \n"
                                             + "3)Eliminar un usuario registrado \n"
+                                            +"4)Volver al menu de Admin \n"
                                             + "--------------------------------------------"));
+                            switch (menuUsuarios) {
+
+                                case 1:
+                                    TipoUsuario tipo = null;
+                                    int id = Integer.parseInt(JOptionPane.showInputDialog("Digite el ID del nuevo usuario: "));
+                                    String nombre = JOptionPane.showInputDialog("Digite el nombre del nuevo usuario: ");
+                                    String apellido = JOptionPane.showInputDialog("Digite el apellido del nuevo usuario: ");
+                                    String correo = JOptionPane.showInputDialog("Digite el correo del nuevo usuario: ");
+                                    String direccion = JOptionPane.showInputDialog("Digite la direccion del nuevo usuario: ");
+                                    String telefono = JOptionPane.showInputDialog("Digite el telefono del nuevo usuario: ");
+                                    boolean continuar = true;
+                                    do {
+                                        int rol = Integer.parseInt(JOptionPane.showInputDialog("Digite el rol del nuevo usuario: \n" +
+                                                "1.CLIENTE \n" +
+                                                "2. EMPLEADO \n"));
+                                        if (rol == 1) {
+                                            tipo = TipoUsuario.CLIENTE;
+                                            continuar = false;
+                                        } else if (rol == 2) {
+                                            tipo = TipoUsuario.EMPLEADO;
+                                            continuar = false;
+                                        } else {
+                                            JOptionPane.showConfirmDialog(null, "Valor agregado para el usuario incorrecto");
+                                            continuar = true;
+                                        }
+                                    } while (continuar);
 
 
-                        } while (menuUsuarios != 3);
-
-                        switch (menuUsuarios) {
-
-                            case 1:
-                                TipoUsuario tipo = null;
-                                int id = Integer.parseInt(JOptionPane.showInputDialog("Digite el ID del nuevo usuario: "));
-                                String nombre = JOptionPane.showInputDialog("Digite el nombre del nuevo usuario: ");
-                                String apellido = JOptionPane.showInputDialog("Digite el apellido del nuevo usuario: ");
-                                String correo = JOptionPane.showInputDialog("Digite el correo del nuevo usuario: ");
-                                String direccion = JOptionPane.showInputDialog("Digite la direccion del nuevo usuario: ");
-                                String telefono = JOptionPane.showInputDialog("Digite el telefono del nuevo usuario: ");
-                                boolean continuar = true;
-                                do {
-                                    int rol = Integer.parseInt(JOptionPane.showInputDialog("Digite el rol del nuevo usuario: \n" +
-                                            "1.CLIENTE \n" +
-                                            "2. EMPLEADO \n"));
-                                    if (rol == 1) {
-                                        tipo = TipoUsuario.CLIENTE;
-                                        continuar = false;
-                                    } else if (rol == 2) {
-                                        tipo = TipoUsuario.EMPLEADO;
-                                        continuar = false;
-                                    } else {
-                                        JOptionPane.showConfirmDialog(null, "Valor agregado para el usuario incorrecto");
-                                        continuar = true;
-                                    }
-                                } while (continuar);
+                                    usuario.AgregarUsuario(new Usuarios(id, nombre, apellido, correo, direccion, telefono, tipo));
+                                    menuUsuarios = 0;
+                                    break;
 
 
-                                usuario.AgregarUsuario(new Usuarios(id, nombre, apellido, correo, direccion, telefono, tipo));
-                                break;
+                                case 2:
+
+                                    JOptionPane.showConfirmDialog(null, usuario);
+                                    menuUsuarios = 0;
+
+                                    break;
+
+                                case 3:
+
+                                    usuario.eliminarUsuario(Integer.parseInt("Digite el ID del usuario que desea eliminar: "));
+                                    menuUsuarios = 0;
+                                    break;
+                            }
 
 
-                            case 2:
-
-                                JOptionPane.showConfirmDialog(null, usuario);
-
-                                break;
-
-                            case 3:
-
-                                usuario.eliminarUsuario(Integer.parseInt("Digite el ID del usuario que desea eliminar: "));
-                                break;
-                        }
+                        } while (menuUsuarios != 4);
+                        menuAdmin = 0;
                         break;
 
 
                     case 2:
 
-                        //ADMINISTRAR EL INVENTARIO
+                        menuProductos(listaProductos);
+                        menuAdmin = 0;
 
                         break;
 
 
                     case 3:
 
-
-                        //ADMINISTRAR LAS COMPRAS Y PEDIDOS
+                        menuPedidos(pedidos,listaProductos, usuario);
+                        menuAdmin = 0;
 
                         break;
 

@@ -11,6 +11,7 @@ public class Principal {
         ListaUsuarios usuarios = new ListaUsuarios();
         Cola pedidos = new Cola();
 
+        menu.menuUsuarios(usuarios,productos,pedidos);
 
 
     }
