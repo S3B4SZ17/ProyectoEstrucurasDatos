@@ -192,7 +192,7 @@ public class metodosMenu {
                         "----------BIENVENIDO ADMINISTRADOR----------\n"
                                 + "1)Administrar usuarios \n"
                                 + "2)Administrar inventario \n"
-                                + "3)Administrar compras y cotizaciones \n"
+                                + "3)Volver al menu de inicio \n"// volver al menu, para seleccionar cliente
                                 + "--------------------------------------------"));
 
                 switch (menuAdmin) {
@@ -262,7 +262,7 @@ public class metodosMenu {
                         break;
 
 
-                    case 2:
+                    case 2://eliminar este
 
                         menuProductos(listaProductos);
                         menuAdmin = 0;
@@ -287,7 +287,7 @@ public class metodosMenu {
 
         }else{
 
-            // aqui se desarrolla el menuUsuarios del cliente
+            menuProductos(listaProductos);
 
 
 
