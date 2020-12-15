@@ -25,5 +25,13 @@ public class NodoListaUsuarios {
 
     public void setNext(NodoListaUsuarios next) {
         this.next = next;
-    }  
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "usuario = " + datos +
+                ", next = " + next +
+                '}';
+    }
 }

@@ -8,11 +8,8 @@ import javax.swing.*;
 public class ListaUsuarios {
 
  NodoListaUsuarios cabeza;   
-    
-    
- 
- 
-  public boolean esVacia() {
+
+ public boolean esVacia() {
         return cabeza == null;
     }
  
@@ -134,5 +131,28 @@ public class ListaUsuarios {
         }
         return usuarios;
     }
-    
+
+    public Usuarios existe(int id) {       //METODO PARA VERIFICAR SI UN USUARIO ESTA REGISTRADO EN EL SISTEMA
+        Usuarios miUsuario = null;
+        NodoListaUsuarios aux = cabeza;
+        if (aux.getNext() == null) {
+            if (aux.getDatos().getId() == id) {
+                miUsuario = aux.getDatos();
+            }
+        }
+        while (aux != null) {
+            if (aux.getDatos().getId() == id) {
+                miUsuario = aux.getDatos();
+                break;
+            }
+            aux = aux.getNext();
+        }
+        return miUsuario;
+    }
+
+    @Override
+    public String toString() {
+        return "ListaUsuarios{" + cabeza +
+                '}';
+    }
 }

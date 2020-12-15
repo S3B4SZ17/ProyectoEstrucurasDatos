@@ -117,7 +117,7 @@ public class metodosMenu {
                         "************* Modulo de Ventas ***************\n" +
                                 "1. Ver Productos\n" +
                                 "2. Realizar compra\n" +
-                                "3. Ver ordenes de compra"+
+                                "3. Ver ordenes de compra\n"+
                                 "4. Volver al menu Principal\n\n" +
                                 "Digite la opción que desea ejecutar:\n" +
                                 "***************************************\n"));
@@ -141,13 +141,13 @@ public class metodosMenu {
                             } else {
                                 JOptionPane.showConfirmDialog(null, "No se encontro ningun producto con ese ID");
                             }
-                            continuar = Integer.parseInt(JOptionPane.showInputDialog("Desea agregar mas productos? "+
+                            continuar = Integer.parseInt(JOptionPane.showInputDialog("Desea agregar mas productos? \n"+
                                     "1. Si\n"+
                                     "2. No\n"));
                         }while (continuar != 2);
 
-
-                        pedidos.agregarCola(new NodoCola(Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de factura")),
+                        Usuarios cliente = listaClientes.existe(Integer.parseInt(JOptionPane.showInputDialog("Digite el usuario")));
+                        pedidos.agregarCola(new NodoCola(Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de factura")), cliente
                                 //listaClientes.buscarCliente(Integer.parseInt("Digite el ID del cleinte"));se tiene que buscar por ID un usuario para asi poder generar la compra
                                 ,productos));
 
@@ -218,6 +218,7 @@ public class metodosMenu {
                                     String correo = JOptionPane.showInputDialog("Digite el correo del nuevo usuario: ");
                                     String direccion = JOptionPane.showInputDialog("Digite la direccion del nuevo usuario: ");
                                     String telefono = JOptionPane.showInputDialog("Digite el telefono del nuevo usuario: ");
+                                    String contrasena = JOptionPane.showInputDialog("Digite la contrasena: ");
                                     boolean continuar = true;
                                     do {
                                         int rol = Integer.parseInt(JOptionPane.showInputDialog("Digite el rol del nuevo usuario: \n" +
@@ -236,7 +237,7 @@ public class metodosMenu {
                                     } while (continuar);
 
 
-                                    usuario.AgregarUsuario(new Usuarios(id, nombre, apellido, correo, direccion, telefono, tipo));
+                                    usuario.AgregarUsuario(new Usuarios(id, nombre, apellido, correo, direccion, telefono, contrasena, tipo));
                                     menuUsuarios = 0;
                                     break;
 
