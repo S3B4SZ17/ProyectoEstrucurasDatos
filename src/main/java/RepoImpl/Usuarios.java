@@ -25,8 +25,22 @@ public class Usuarios {
     private String correo;
     private String direccion;
     private String telefono;
-    private String contrasena;
     private TipoUsuario rol; 
+    
+    @Override
+    public String toString() {
+        return "{" +
+                " Id = " + id +
+                ", nombre = '" + nombre + '\'' +
+                ", apellidos = " + apellidos +
+                ", correo = " + correo +
+                ", direccion = '" + direccion + '\'' +
+                ", telefono = '" + telefono + '\'' +
+                ", Tipo de Usuario: = '" + rol.toString() + '\'' +
+                '}'+"\n";
+    }
+    
+    
 
 
 

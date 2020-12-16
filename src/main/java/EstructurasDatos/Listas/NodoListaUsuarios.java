@@ -29,9 +29,7 @@ public class NodoListaUsuarios {
 
     @Override
     public String toString() {
-        return "{" +
-                "usuario = " + datos +
-                ", next = " + next +
-                '}';
+        return  "usuario = " + datos +" \n" + next;
+                
     }
 }

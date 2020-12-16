@@ -1,6 +1,6 @@
 package EstructurasDatos.Colas;
 
-
+import EstructurasDatos.Listas.Lista;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,16 +25,16 @@ public class Cola {
         }
     }
 
-    public int atiende(){
-        int aux = 0;
+    public Lista atiende(){
+        Lista aux = null;
         if (!vacia()){
-            aux = primero.getFactura();
+            aux = primero.getProductos();
             primero = primero.getAtras();
             return aux;
         }
         else{
             System.out.println("La cola esta vacia");
-            return 0;
+            return null;
         }
     }
 
@@ -43,7 +43,7 @@ public class Cola {
         NodoCola temp;
         temp = primero;
         while (temp != null) {
-            str += "\t" + temp.getFactura();
+            str += "\t" + temp;
             temp = temp.getAtras();
         }
         return str;
@@ -53,7 +53,22 @@ public class Cola {
         if (primero == null) return true;
         else return false;
     }
+    
+    public Lista buscar(int fact){
+        NodoCola aux= primero;
+        Lista aux2=null;
+        while(aux!=null){
+            if(aux.getFactura()==fact){
+                aux2=aux.getProductos();
+                return aux2;
+            }
+            else{
+                aux=aux.getAtras();
+            }
+        }
+        
+        //OptionPane.showConfirmDialog(null,"No se encontro la factura");
+        return aux2;
 
-
-
+    }
 }

@@ -115,7 +115,7 @@ public class ListaUsuarios {
                 actualizarUsuario(ID, nodo.getNext());
             }
         } else {
-            JOptionPane.showMessageDialog(null, "No existen usuarios con este c�digo");
+            JOptionPane.showMessageDialog(null, "No existen usuarios con este codigo");
         }
     } 
     
@@ -127,7 +127,7 @@ public class ListaUsuarios {
         } else if (nodo == null) {
             usuarios = "";
         } else {
-            usuarios += "C�digo de usuario: " + nodo.getDatos().getId() + "\nNombre de usuario: " + nodo.getDatos().getNombre() + "\nApellido de usuario: " + nodo.getDatos().getApellidos() + "\nTipo de usuario: " + nodo.getDatos().getRol().toString()+"\nCorreo del usuario" + nodo.getDatos().getCorreo() + "\nDireccion del usuario:"+ nodo.getDatos().getDireccion()+"\nTelefono del usuario:"+ nodo.getDatos().getTelefono()+"\n-------------------\n" + imprimir(nodo.getNext());
+            usuarios += "Codigo de usuario: " + nodo.getDatos().getId() + "\nNombre de usuario: " + nodo.getDatos().getNombre() + "\n Apellido de usuario: " + nodo.getDatos().getApellidos() + "\nTipo de usuario: " + nodo.getDatos().getRol().toString()+"\nCorreo del usuario" + nodo.getDatos().getCorreo() + "\nDireccion del usuario:"+ nodo.getDatos().getDireccion()+"\nTelefono del usuario:"+ nodo.getDatos().getTelefono()+"\n-------------------\n" + imprimir(nodo.getNext());
         }
         return usuarios;
     }
@@ -152,7 +152,65 @@ public class ListaUsuarios {
 
     @Override
     public String toString() {
-        return "ListaUsuarios{" + cabeza +
-                '}';
+        return "ListaUsuarios" + cabeza; 
+                
     }
+    
+     public void eliminar(int id){
+        NodoListaUsuarios aux = cabeza;
+        if(buscar(id) != null){
+            if (aux.getDatos().getId() == id){
+                aux = aux.getNext();
+                cabeza = aux;
+            }else{
+                while (aux!=null && aux.getNext().getDatos().getId() < id ){
+                    aux = aux.getNext();
+                }
+                aux.setNext(aux.getNext().getNext());
+            }
+        }else{
+            JOptionPane.showConfirmDialog(null,"No se encontro ningun producto con ese ID");
+        }
+
+
+    }
+
+    public Usuarios buscar(int id){
+        Usuarios p;
+        NodoListaUsuarios aux = cabeza;
+        while (aux !=null){
+            if (id == aux.getDatos().getId()){
+                p = aux.getDatos();
+                return p;
+            }
+            aux = aux.getNext();
+        }
+
+        return  null;
+
+    }
+     public void elimina(int id){
+        NodoListaUsuarios aux = cabeza;
+        if(buscar(id) != null){
+            if (aux.getDatos().getId() == id){
+                aux = aux.getNext();
+                cabeza = aux;
+            }else{
+                while (aux!=null && aux.getNext().getDatos().getId() < id ){
+                    aux = aux.getNext();
+                }
+                aux.setNext(aux.getNext().getNext());
+            }
+        }else{
+            JOptionPane.showConfirmDialog(null,"No se encontro ningun producto con ese ID");
+        }
+
+
+    }
+
+    public NodoListaUsuarios getCabeza() {
+        return cabeza;
+    }
+     
+    
 }
